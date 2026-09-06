@@ -107,3 +107,13 @@ Progress made:
 Current status: the model loads successfully and processes live webcam input, but produces repetitive, non-responsive output regardless of input content (e.g. the same phrase looping regardless of what is said) — a symptom consistent with a mouth-crop or frame-ordering issue elsewhere in the inference pipeline rather than an accuracy limitation. This was confirmed with controlled short-utterance tests under good lighting, ruling out camera/lighting conditions as the cause. Further debugging would require tracing the frame preprocessing pipeline in Chaplin's source directly.
 
 This remains a natural next step: the underlying pretrained model is state-of-the-art on LRS3, so a working integration would substantially extend this project beyond GRID's constrained vocabulary.
+
+## Quick Prediction (CLI)
+
+To run inference on a GRID-format video without opening the notebook:
+
+```bash
+python predict.py --video data/s1/bbal6n.mpg
+```
+
+This loads the trained model, processes the video using the same preprocessing pipeline used during training, and prints both the raw CTC prediction and the vocabulary-corrected result.
