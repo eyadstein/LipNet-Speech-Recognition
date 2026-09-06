@@ -44,6 +44,8 @@ The pipeline consists of the following stages:
 5. **CTC loss** — The network is trained with Connectionist Temporal Classification loss, which marginalizes over all valid alignments between the input sequence and the target sentence, letting the model learn the alignment implicitly.
 6. **Decoding + correction** — CTC beam search decoding converts frame-level character predictions into text, followed by a vocabulary-constrained correction step that resolves double-letter decoding artifacts (see Results above).
 
+Video -> Grayscale + Mouth Crop -> Conv3D x3 -> Bi-LSTM x2 -> Dense (softmax) -> CTC Decode -> Vocab Correction -> Sentence
+
 ## Dataset
 
 The model is trained and evaluated on the [GRID corpus](https://spandh.dcs.shef.ac.uk/gridcorpus/), a widely used audiovisual sentence corpus consisting of short, fixed-grammar utterances (e.g. "bin blue at f two now") recorded from multiple speakers under controlled conditions. Its constrained grammar and vocabulary make it a standard benchmark for lipreading research.
@@ -68,11 +70,9 @@ The model is trained and evaluated on the [GRID corpus](https://spandh.dcs.shef.
 
 ### Installation
 
-```bash
 python -m venv venv
 venv\Scripts\activate
 pip install opencv-python matplotlib imageio gdown tensorflow
-```
 
 ### Usage
 
