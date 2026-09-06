@@ -1,0 +1,9 @@
+venv/
+data/
+data.zip
+models/
+checkpoints.zip
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+Test.ipynb
