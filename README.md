@@ -117,3 +117,14 @@ python predict.py --video data/s1/bbal6n.mpg
 ```
 
 This loads the trained model, processes the video using the same preprocessing pipeline used during training, and prints both the raw CTC prediction and the vocabulary-corrected result.
+
+## Web Demo (Gradio)
+
+For a browser-based interface instead of the CLI:
+
+```bash
+pip install gradio
+python app.py
+```
+
+This opens a local web app where you can upload a GRID-format video and see both the raw and corrected predictions.
