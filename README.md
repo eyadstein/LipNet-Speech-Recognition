@@ -92,3 +92,18 @@ Open `LipNet.ipynb` and run the cells sequentially. The notebook is organized in
 ## License
 
 This project is licensed under the GNU General Public License v3.0. See [LICENSE](LICENSE) for the full text.
+
+## Future Work
+
+### Open-vocabulary lipreading via Auto-AVSR
+
+The current model is trained exclusively on the GRID corpus's 51-word fixed vocabulary and does not generalize to free speech or unconstrained webcam conditions. As an extension, integration with [Auto-AVSR](https://github.com/mpc001/auto_avsr) (via the [Chaplin](https://github.com/amanvirparhar/chaplin) real-time inference tool) was attempted to support genuine open-vocabulary, real-time lipreading from a live webcam feed.
+
+Progress made:
+- Successfully installed and configured the Auto-AVSR LRS3 pretrained model (~955MB) and its accompanying language model (~205MB) on Windows.
+- Resolved several environment compatibility issues along the way: a UTF-8 decoding failure in Python's default Windows encoding, a breaking API change in MediaPipe 1.0.1 (removal of the `mp.solutions` interface, requiring a pin to `mediapipe==0.10.14`), and a `torchvision.io.read_video` removal in newer torchvision releases (requiring pinned `torch==2.5.1` / `torchvision==0.20.1` / `torchaudio==2.5.1`).
+- Confirmed the tool's frame-rate throttling logic (16fps capture) is implemented correctly and is not the source of downstream issues.
+
+Current status: the model loads successfully and processes live webcam input, but produces repetitive, non-responsive output regardless of input content (e.g. the same phrase looping regardless of what is said) — a symptom consistent with a mouth-crop or frame-ordering issue elsewhere in the inference pipeline rather than an accuracy limitation. This was confirmed with controlled short-utterance tests under good lighting, ruling out camera/lighting conditions as the cause. Further debugging would require tracing the frame preprocessing pipeline in Chaplin's source directly.
+
+This remains a natural next step: the underlying pretrained model is state-of-the-art on LRS3, so a working integration would substantially extend this project beyond GRID's constrained vocabulary.
