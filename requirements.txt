@@ -1,0 +1,14 @@
+
+gdown==6.1.0
+gradio==6.26.0
+gradio_client==2.6.1
+hf-gradio==0.4.1
+ImageIO==2.37.4
+matplotlib==3.11.1
+matplotlib-inline==0.2.2
+numpy==2.4.6
+opencv-contrib-python==5.0.0.93
+opencv-python==5.0.0.93
+pytest==9.1.1
+tensorflow==2.21.0
+
