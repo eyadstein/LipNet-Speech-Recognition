@@ -102,7 +102,7 @@ def predict(video_path: str) -> tuple[str, str]:
 
     yhat = model.predict(frames, verbose=0)
     decoded = tf.keras.backend.ctc_decode(
-        yhat, input_length=[75], greedy=False
+        yhat, input_length=[75], greedy=False, beam_width=100
     )[0][0].numpy()
 
     raw_pred = tf.strings.reduce_join(

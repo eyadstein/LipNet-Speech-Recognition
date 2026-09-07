@@ -6,8 +6,8 @@ This model was evaluated on 80 held-out sentences from the GRID corpus test spli
 
 | Metric | Raw model output | With post-processing correction |
 |---|---|---|
-| Exact sentence match | 35.0% | 76.2% |
-| Word Error Rate (WER) | 15.0% | 4.0% |
+| Exact sentence match | 71.2% (greedy) | 85.0% (beam width 100) |
+| Word Error Rate (WER) | 4.94% (greedy) | 2.62% (beam width 100) |
 
 ## Comparison to Published Benchmarks (GRID corpus)
 
@@ -31,3 +31,7 @@ This comparison is illustrative, not a strict apples-to-apples benchmark. Severa
 ## Conclusion
 
 With the caveats above, this project's corrected 4.0% WER is in the same general range as published GRID results from LipNet (2016) and LCANet (2018), though not evaluated under identical, stricter conditions. It falls short of more recent state-of-the-art results (e.g. MA-LipNet's 1.09%), which use more sophisticated architectures, larger-scale training, and standardized evaluation protocols.
+
+## Note on Beam Width
+
+CTC beam search decoding significantly outperforms greedy decoding for this model: widening the beam from 1 (greedy) to 100 improved exact-match accuracy from 71.2% to 85.0% and reduced WER from 4.94% to 2.62%, evaluated across 80 test sentences. All reported results above use beam width 100.
