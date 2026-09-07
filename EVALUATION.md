@@ -6,8 +6,8 @@ This model was evaluated on 80 held-out sentences from the GRID corpus test spli
 
 | Metric | Raw model output | With post-processing correction |
 |---|---|---|
-| Exact sentence match | 71.2% (greedy, 80-sentence sample) | 79.0% (beam width 100, full 100-sentence test set) |
-| Word Error Rate (WER) | 4.94% (greedy, 80-sentence sample) | 3.86% (beam width 100, full 100-sentence test set) |
+| Exact sentence match | 71.2% (greedy, 80-sentence sample) | 82.0% (beam width 100, full 100-sentence test set) |
+| Word Error Rate (WER) | 4.94% (greedy, 80-sentence sample) | 3.17% (beam width 100, full 100-sentence test set) |
 
 ## Comparison to Published Benchmarks (GRID corpus)
 
@@ -39,3 +39,7 @@ CTC beam search decoding significantly outperforms greedy decoding for this mode
 ## Full Test Set Evaluation
 
 The GRID test split used in this project contains 100 sentences (50 batches of 2). The final reported results above (79.0% exact match, 3.86% WER) reflect evaluation across the complete test set, using beam width 100 decoding plus vocabulary-constrained correction — not a partial sample.
+
+## Alignment Bug Fix
+
+While analyzing per-word error rates, a bug was found in `load_alignments()`: GRID's alignment files use `sp` to mark short pauses (in addition to `sil` for silence), but the original filtering logic only excluded `sil`. This meant `sp` tokens were being scored as if they were real spoken words the model should predict, artificially inflating the error rate on affected sentences. Fixing this filter (excluding both `sil` and `sp`) improved the full-test-set results from 79.0% to 82.0% exact match, and WER from 3.86% to 3.17%. Note the model itself was trained with this bug present, so it may still occasionally emit spurious output corresponding to pauses; retraining with the corrected alignment filter would likely improve results further.
