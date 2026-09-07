@@ -27,29 +27,7 @@ num_to_char = tf.keras.layers.StringLookup(
     invert=True
 )
 
-# ── GRID fixed vocabulary correction ───────────────────────────────
-GRID_VOCAB = [
-    "bin", "lay", "place", "set",
-    "blue", "green", "red", "white",
-    "at", "by", "in", "with",
-    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
-    "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
-    "u", "v", "x", "y", "z",
-    "zero", "one", "two", "three", "four",
-    "five", "six", "seven", "eight", "nine",
-    "again", "now", "please", "soon"
-]
-
-def correct_sentence(sentence: str) -> str:
-    words = sentence.strip().split()
-    corrected = []
-    for w in words:
-        if w in GRID_VOCAB:
-            corrected.append(w)
-        else:
-            match = difflib.get_close_matches(w, GRID_VOCAB, n=1, cutoff=0.5)
-            corrected.append(match[0] if match else w)
-    return " ".join(corrected)
+from postprocess import correct_sentence
 
 # ── Video loading (matches training preprocessing exactly) ────────
 def load_video(path: str) -> tf.Tensor:
