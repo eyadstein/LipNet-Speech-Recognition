@@ -6,8 +6,8 @@ This model was evaluated on 80 held-out sentences from the GRID corpus test spli
 
 | Metric | Raw model output | With post-processing correction |
 |---|---|---|
-| Exact sentence match | 71.2% (greedy) | 85.0% (beam width 100) |
-| Word Error Rate (WER) | 4.94% (greedy) | 2.62% (beam width 100) |
+| Exact sentence match | 71.2% (greedy, 80-sentence sample) | 79.0% (beam width 100, full 100-sentence test set) |
+| Word Error Rate (WER) | 4.94% (greedy, 80-sentence sample) | 3.86% (beam width 100, full 100-sentence test set) |
 
 ## Comparison to Published Benchmarks (GRID corpus)
 
@@ -35,3 +35,7 @@ With the caveats above, this project's corrected 4.0% WER is in the same general
 ## Note on Beam Width
 
 CTC beam search decoding significantly outperforms greedy decoding for this model: widening the beam from 1 (greedy) to 100 improved exact-match accuracy from 71.2% to 85.0% and reduced WER from 4.94% to 2.62%, evaluated across 80 test sentences. All reported results above use beam width 100.
+
+## Full Test Set Evaluation
+
+The GRID test split used in this project contains 100 sentences (50 batches of 2). The final reported results above (79.0% exact match, 3.86% WER) reflect evaluation across the complete test set, using beam width 100 decoding plus vocabulary-constrained correction — not a partial sample.
