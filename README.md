@@ -128,3 +128,5 @@ python app.py
 ```
 
 This opens a local web app where you can upload a GRID-format video and see both the raw and corrected predictions.
+
+![LipNet architecture pipeline](architecture.png)
